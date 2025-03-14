@@ -1,0 +1,77 @@
+import unittest
+
+def tinhTien(so_sp_a, so_sp_b, tuoi, khach_hang_than_thiet):
+    gia_sp_a = 5
+    gia_sp_b = 8
+    tong_tien = (so_sp_a * gia_sp_a) + (so_sp_b * gia_sp_b)
+    giam_gia = 0
+
+    if (so_sp_a + so_sp_b) >= 5:
+        giam_gia += 0.05
+
+    if 18 <= tuoi <= 25:
+        giam_gia += 0.1
+
+    if khach_hang_than_thiet:
+        giam_gia += 0.15
+
+    tong_tien *= (1 - giam_gia)
+    return round(tong_tien, 5)
+
+
+class TestTinhTien(unittest.TestCase):
+    def test_case_1(self):
+        result = tinhTien(0, 0, 30, False)
+        expected = 0
+        print(f"Test case 1: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_2(self):
+        result = tinhTien(2, 2, 20, False)
+        expected = 23.4
+        print(f"Test case 2: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_3(self):
+        result = tinhTien(2, 2, 30, True)
+        expected = 22.1
+        print(f"Test case 3: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+
+    def test_case_4(self):
+        result = tinhTien(2, 2, 20, True)
+        expected = 19.5
+        print(f"Test case 4: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_5(self):
+        result = tinhTien(3, 2, 30, False)
+        expected = 29.45
+        print(f"Test case 5: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_6(self):
+        result = tinhTien(3, 2, 20, False)
+        expected = 26.35
+        print(f"Test case 6: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_7(self):
+        result = tinhTien(3, 2, 30, True)
+        expected = 24.8
+        print(f"Test case 7: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+    
+    def test_case_8(self):
+        result = tinhTien(3, 2, 20, True)
+        expected = 21.7
+        print(f"Test case 8: Expected: {expected}, Actual: {result}")
+        self.assertAlmostEqual(result, expected, places=2)
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestTinhTien)
+result = unittest.TextTestRunner(verbosity=2).run(suite)
+
+if result.wasSuccessful():
+    print("\nAll tests passed!")
+else:
+    print(f"\n{result.testsRun} tests run. {len(result.failures)} failures, {len(result.errors)} errors.")
